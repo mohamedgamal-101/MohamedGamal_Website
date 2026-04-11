@@ -426,6 +426,30 @@ textarea { height: 150px; }
   color: #fff;
 }
 
+/* View All Articles Link */
+.view-all-container {
+  margin-top: 2rem;
+  text-align: center;
+}
+.view-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--teal);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.3s;
+  padding: 0.5rem 1.5rem;
+  border-radius: 30px;
+  background: rgba(24, 189, 188, 0.05);
+}
+.view-all-link:hover {
+  color: #fff;
+  background: var(--teal);
+  transform: scale(1.05);
+}
+
 footer {
   text-align: center;
   padding: 3rem;
@@ -620,6 +644,14 @@ footer {
         <i class="fa-solid fa-chevron-left"></i>
       </button>
     </div>
+
+    <div class="view-all-container">
+      <a href="https://echosofthoughts.blogspot.com/" target="_blank" class="view-all-link">
+        عرض كافة المقالات في المدونة 
+        <i class="fa-solid fa-arrow-left"></i>
+      </a>
+    </div>
+
   </div>
 </section>
 
