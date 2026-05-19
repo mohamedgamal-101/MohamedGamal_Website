@@ -545,28 +545,28 @@ footer { text-align: center; padding: 3rem; font-size: 0.8rem; color: var(--mute
     
     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem;">
       <div class="product-card" style="background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-  <div style="padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 1.5rem; flex: 1; align-items: center; text-align: center;">
-    
-    <div style="width: 60px; height: 60px; background: rgba(24, 189, 188, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: var(--teal); font-size: 1.8rem; margin-bottom: 0.5rem;">
-      <i class="fa-solid fa-book-open"></i>
-    </div>
-    
-    <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--text); line-height: 1.4; letter-spacing: -0.5px;">
-      كتاب Presentation Secret Sauce
-    </h3>
-    
-    <p style="font-size: 0.92rem; color: var(--muted); line-height: 1.75; font-weight: 400; max-width: 90%;">
-      مشكلتك مش في السلايدز، مشكلتك في طريقة التفكير! ملف <span style="color: var(--teal); font-weight: 600;">'Presentation Secret Sauce'</span> هو كورس Presentation Skills كامل في 6 صفحات.
-      <br><br>
-      هيعلمك بشكل مختصر كل اللي يخص البريزنتيشن والتحضير بتاعها، وإزاي بنستعمل الـ AI ومروراً بالـ Storytelling، إزاي تشد الجمهور، وتظبط الديزاين. ومعاه بونص خاص للمسابقات والـ Pitch Decks. جرب الفايل ده دلوقتي!
-    </p>
-    
-    <button onclick="openDownloadModal('manual-v1', 'كتاب Presentation Secret Sauce')" style="margin-top: auto; width: 100%; padding: 1rem; background: var(--teal); color: #fff; border: none; border-radius: 12px; font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.3s; text-align: center; box-shadow: 0 8px 20px rgba(24, 189, 188, 0.25);">
-      تحميل مجاني (PDF)
-    </button>
-    
-  </div>
-</div>
+        <div style="padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 1.5rem; flex: 1; align-items: center; text-align: center;">
+          
+          <div style="width: 60px; height: 60px; background: rgba(24, 189, 188, 0.1); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: var(--teal); font-size: 1.8rem; margin-bottom: 0.5rem;">
+            <i class="fa-solid fa-book-open"></i>
+          </div>
+          
+          <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--text); line-height: 1.4; letter-spacing: -0.5px;">
+            كتاب Presentation Secret Sauce
+          </h3>
+          
+          <p style="font-size: 0.92rem; color: var(--muted); line-height: 1.75; font-weight: 400; max-width: 90%;">
+            مشكلتك مش في السلايدز، مشكلتك في طريقة التفكير! ملف <span style="color: var(--teal); font-weight: 600;">'Presentation Secret Sauce'</span> هو كورس Presentation Skills كامل في 6 صفحات.
+            <br><br>
+            هيعلمك بشكل مختصر كل اللي يخص البريزنتيشن والتحضير بتاعها، وإزاي بنستعمل الـ AI ومروراً بالـ Storytelling، إزاي تشد الجمهور، وتظبط الديزاين. ومعاه بونص خاص للمسابقات والـ Pitch Decks. جرب الفايل ده دلوقتي!
+          </p>
+          
+          <button onclick="openDownloadModal('manual-v1', 'كتاب Presentation Secret Sauce')" style="margin-top: auto; width: 100%; padding: 1rem; background: var(--teal); color: #fff; border: none; border-radius: 12px; font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 1rem; cursor: pointer; transition: all 0.3s; text-align: center; box-shadow: 0 8px 20px rgba(24, 189, 188, 0.25);">
+            تحميل مجاني (PDF)
+          </button>
+          
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -576,7 +576,7 @@ footer { text-align: center; padding: 3rem; font-size: 0.8rem; color: var(--mute
     <button onclick="closeDownloadModal()" style="position: absolute; top: 1.2rem; left: 1.2rem; background: none; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
     
     <h3 id="modalProductTitle" style="font-size: 1.4rem; font-weight: 800; color: var(--text); margin-bottom: 0.5rem; text-align: center;">تحميل المنتج الرقمي</h3>
-    <p style="font-size: 0.85rem; color: var(--teal); text-align: center; margin-bottom: 2rem;">ادخل بياناتك وسيصلك رابط التحميل المباشر فوراً على إيميلك</p>
+    <p style="font-size: 0.85rem; color: var(--teal); text-align: center; margin-bottom: 2rem;">ادخل بياناتك وهيظهرلك رابط التحميل فوراً</p>
     
     <form id="product-form" onsubmit="handleProductSubmit(event)">
       <input type="hidden" id="modalProductId" name="productId">
@@ -594,9 +594,9 @@ footer { text-align: center; padding: 3rem; font-size: 0.8rem; color: var(--mute
           <input type="email" id="pemail" name="email" placeholder="name@example.com" required style="width:100%;">
         </div>
         <button type="submit" id="pSubmitBtn" style="padding: 1rem; background: var(--teal); color: #fff; border: none; border-radius: 12px; font-family: 'Cairo', sans-serif; font-weight: 700; cursor: pointer; transition: all 0.3s; margin-top: 0.5rem;">
-          تأكيد وإرسال رابط التحميل
+          تأكيد وتحميل الكتاب
         </button>
-        <div id="pMessage" style="display:none; text-align:center; font-size:0.9rem; font-weight:600; padding:0.5rem; border-radius:8px;"></div>
+        <div id="pMessage" style="display:none;"></div>
       </div>
     </form>
   </div>
@@ -638,50 +638,47 @@ function openDownloadModal(productId, productTitle) {
   document.getElementById('modalProductTitle').textContent = productTitle;
   document.getElementById('downloadModal').style.display = 'flex';
   document.getElementById('pMessage').style.display = 'none';
+  document.getElementById('pMessage').innerHTML = '';
   document.getElementById('product-form').reset();
+  document.getElementById('pSubmitBtn').style.display = 'block';
+  document.getElementById('pSubmitBtn').disabled = false;
+  document.getElementById('pSubmitBtn').textContent = 'تأكيد وتحميل الكتاب';
 }
 function closeDownloadModal() { document.getElementById('downloadModal').style.display = 'none'; }
 
+// ====== التعديل الجديد: يظهر زرار التحميل مباشرة بعد الإرسال ======
 async function handleProductSubmit(e) {
   e.preventDefault();
   const submitBtn = document.getElementById('pSubmitBtn');
   const msgDiv = document.getElementById('pMessage');
-  
+
   submitBtn.disabled = true;
-  submitBtn.textContent = 'جاري التحقق وإرسال الإيميل...';
-  
-  const formData = {
-    productId: document.getElementById('modalProductId').value,
-    name: document.getElementById('pname').value,
-    phone: document.getElementById('pphone').value,
-    email: document.getElementById('pemail').value
-  };
+  submitBtn.textContent = 'جاري التحضير...';
+
+  const formData = new FormData(e.target);
 
   try {
-    const response = await fetch('/api/download', {
+    await fetch('https://formspree.io/f/xvzyzknb', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
+      body: formData,
+      headers: { 'Accept': 'application/json' }
     });
-    
-    if (response.ok) {
-      msgDiv.style.display = 'block';
-      msgDiv.style.background = 'rgba(24, 189, 188, 0.1)';
-      msgDiv.style.color = 'var(--teal)';
-      msgDiv.textContent = '✓ تم إرسال كتابك بنجاح! تفقد بريدك الإلكتروني الآن.';
-      submitBtn.textContent = 'تم الإرسال بنجاح!';
-      setTimeout(closeDownloadModal, 4000);
-    } else {
-      throw new Error('فشل الإرسال');
-    }
   } catch (error) {
-    msgDiv.style.display = 'block';
-    msgDiv.style.background = 'rgba(255, 80, 80, 0.1)';
-    msgDiv.style.color = '#ff5050';
-    msgDiv.textContent = 'حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى.';
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'تأكيد وإرسال رابط التحميل';
+    console.log("تم حفظ البيانات");
   }
+
+  msgDiv.style.display = 'block';
+  msgDiv.innerHTML = `
+    <div style="background: rgba(24, 189, 188, 0.1); padding: 20px; border-radius: 12px; border: 1px solid #18bdbc;">
+      <p style="color: #18bdbc; margin-bottom: 15px; font-weight: bold;">✓ تم تسجيل بياناتك بنجاح! الكتاب جاهز:</p>
+      <a href="https://drive.google.com/drive/folders/1D-AVId2-VpMm-omMJXDHyILall1T8ARb?usp=sharing" 
+         target="_blank"
+         style="display: block; background: #18bdbc; color: #fff; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: bold; text-align: center;">
+         اضغط هنا للتحميل (PDF)
+      </a>
+    </div>
+  `;
+  submitBtn.style.display = 'none';
 }
 
 // Formspree Integration for Contact Form
