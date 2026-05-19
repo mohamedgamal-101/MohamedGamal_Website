@@ -6,10 +6,10 @@ export default async function handler(req, res) {
 
   const { productId, name, phone, email } = req.body;
 
-  // خريطة الروابط: تم وضع رابط الفولدر الخاص بك هنا بنجاح!
+  // خريطة الروابط المحدثة لاسم كتابك الجديد
   const productsLinks = {
     'manual-v1': {
-      title: 'كتيب الدليل العملي للمهارات الحياتية',
+      title: 'كتاب Presentation Secret Sauce',
       url: 'https://drive.google.com/drive/folders/1D-AVId2-VpMm-omMJXDHyILall1T8ARb?usp=sharing'
     }
   };
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.RESEND_API_KEY}` // المفتاح ده هنضيفه في فيرسيل بأمان في الخطوة الجاية
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}` // المفتاح ده هيتم قراءته تلقائياً من فيرسيل
       },
       body: JSON.stringify({
         from: 'Mohamed Gamal <onboarding@resend.dev>', 
@@ -38,7 +38,7 @@ export default async function handler(req, res) {
             <p>سعيد جداً باهتمامك وشغفك بالتعلم وتطوير مهاراتك.</p>
             <p>بناءً على طلبك، إليك رابط التحميل المباشر لـ <strong>${selectedProduct.title}</strong>:</p>
             <div style="margin: 30px 0; text-align: center;">
-              <a href="${selectedProduct.url}" style="background-color: #18bdbc; color: white; padding: 12px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; display: inline-block;">اضغط هنا لتحميل الكتيب (PDF)</a>
+              <a href="${selectedProduct.url}" style="background-color: #18bdbc; color: white; padding: 12px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; display: inline-block;">اضغط هنا لتحميل الكتاب (PDF)</a>
             </div>
             <p>لو عندك أي استفسار أو حابب تشاركني رأيك بعد القراءة، تقدر ترد على الإيميل ده مباشرة.</p>
             <hr style="border: none; border-top: 1px solid #eee; margin-top: 30px;">
