@@ -166,7 +166,7 @@ nav {
 }
 
 /* Info Styling */
-.info { display: flex; flex-direction: column; gap: 1rem; text-align: center; align-items: center; }
+.info { display: flex; flex-direction: column; gap: 1rem; }
 .greeting {
   font-size: 0.9rem;
   color: var(--teal);
@@ -219,7 +219,7 @@ nav {
 }
 
 /* Buttons */
-.actions { display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; width: 100%; justify-content: flex-start; }
+.actions { display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
 .btn-primary {
   position: relative;
   overflow: hidden;
@@ -388,6 +388,7 @@ textarea { height: 150px; }
 }
 .article-card:hover .article-name { color: var(--teal); }
 .article-image { width: 100%; height: 200px; object-fit: cover; display: block; }
+.article-image--placeholder { background: linear-gradient(135deg, rgba(24,189,188,0.25), rgba(24,189,188,0.05) 60%, #11161d); }
 .article-info { padding: 1.5rem; }
 .article-name { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; line-height: 1.4; }
 
@@ -569,9 +570,9 @@ footer { text-align: center; padding: 3rem; font-size: 0.8rem; color: var(--mute
 
       <div class="social-label">تابعني على منصات التواصل الإجتماعي</div>
       <div class="social-links">
-        <a href="https://www.youtube.com/@slicommunity" target="_blank" class="social-icon" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-        <a href="https://www.instagram.com/by_gemy" target="_blank" class="social-icon" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://www.linkedin.com/in/mohamedgamalattia/" target="_blank" class="social-icon" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://www.youtube.com/@slicommunity" target="_blank" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+        <a href="https://www.instagram.com/by_gemy" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/mohamedgamalattia/" target="_blank" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
       </div>
     </div>
   </div>
@@ -692,7 +693,7 @@ footer { text-align: center; padding: 3rem; font-size: 0.8rem; color: var(--mute
 
 <section class="eng-section" id="engineering">
   <div class="eng-wrap">
-    <div class="eng-eyebrow">مجال شغلي</div>
+    <div class="eng-eyebrow">وبعيدًا عن صناعة المحتوى</div>
     <h2 class="eng-title">في الأساس، أنا <span style="color: var(--teal);">مهندس مدني</span></h2>
 
     <p class="eng-bio">
@@ -811,6 +812,90 @@ const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 prevBtn.addEventListener('click', () => { slider.scrollBy({ left: -320, behavior: 'smooth' }); });
 nextBtn.addEventListener('click', () => { slider.scrollBy({ left: 320, behavior: 'smooth' }); });
+
+// ===== Articles from Google Sheet =====
+// 1) Publish your sheet: File > Share > Publish to web > choose the sheet tab + "Comma-separated values (.csv)" > Publish
+// 2) Paste the link below. Leave it empty to keep the articles that are written in the HTML above.
+const ARTICLES_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSL6BuKtAlLbV__n1Ro9aY2UjKOLZ9yCBBTgxh4CX9IMc98z5h9fmp5emf8NkkeoBZ6rG0P-MsfDZ-O/pub?gid=338188522&single=true&output=csv';
+// Set to true if you add new rows at the BOTTOM of the sheet and want them to appear FIRST on the site.
+const NEWEST_FIRST = true;
+
+function parseCSV(text) {
+  const rows = [];
+  let row = [], field = '', inQuotes = false;
+  text = text.replace(/^\uFEFF/, '');
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQuotes) {
+      if (c === '"' && text[i + 1] === '"') { field += '"'; i++; }
+      else if (c === '"') { inQuotes = false; }
+      else { field += c; }
+    } else if (c === '"') { inQuotes = true; }
+    else if (c === ',') { row.push(field); field = ''; }
+    else if (c === '\n' || c === '\r') {
+      if (c === '\r' && text[i + 1] === '\n') i++;
+      row.push(field); field = '';
+      if (row.some(f => f.trim() !== '')) rows.push(row);
+      row = [];
+    } else { field += c; }
+  }
+  row.push(field);
+  if (row.some(f => f.trim() !== '')) rows.push(row);
+  return rows;
+}
+
+function resolveImageUrl(raw) {
+  const url = (raw || '').trim();
+  if (!url) return '';
+  // Google Drive share link -> direct thumbnail link
+  const m = url.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=view&)?id=)([\w-]+)/);
+  if (m) return 'https://drive.google.com/thumbnail?id=' + m[1] + '&sz=w800';
+  return url; // full https link, or a file name inside the site folder (e.g. article10.jpg)
+}
+
+async function loadArticlesFromSheet() {
+  if (!ARTICLES_SHEET_CSV_URL) return;
+  try {
+    const res = await fetch(ARTICLES_SHEET_CSV_URL, { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const rows = parseCSV(await res.text());
+    if (rows.length < 2) return;
+    const head = rows[0].map(h => h.trim().toLowerCase());
+    const iTitle = head.indexOf('title'), iLink = head.indexOf('link'), iImg = head.indexOf('image');
+    if (iTitle < 0 || iLink < 0) throw new Error('Sheet needs "title" and "link" columns');
+
+    let items = rows.slice(1).map(r => ({
+      title: (r[iTitle] || '').trim(),
+      link: (r[iLink] || '').trim(),
+      image: iImg >= 0 ? resolveImageUrl(r[iImg]) : ''
+    })).filter(a => a.title && /^https?:\/\//i.test(a.link));
+    if (!items.length) return;
+    if (NEWEST_FIRST) items.reverse();
+
+    slider.textContent = '';
+    items.forEach(a => {
+      const card = document.createElement('a');
+      card.href = a.link; card.target = '_blank'; card.rel = 'noopener'; card.className = 'article-card';
+      if (a.image) {
+        const img = document.createElement('img');
+        img.src = a.image; img.alt = a.title; img.className = 'article-image'; img.loading = 'lazy';
+        img.onerror = () => { const ph = document.createElement('div'); ph.className = 'article-image article-image--placeholder'; img.replaceWith(ph); };
+        card.appendChild(img);
+      } else {
+        const ph = document.createElement('div');
+        ph.className = 'article-image article-image--placeholder';
+        card.appendChild(ph);
+      }
+      const info = document.createElement('div'); info.className = 'article-info';
+      const name = document.createElement('div'); name.className = 'article-name'; name.textContent = a.title;
+      info.appendChild(name); card.appendChild(info);
+      slider.appendChild(card);
+    });
+  } catch (err) {
+    console.warn('Articles sheet not loaded, keeping built-in articles:', err);
+  }
+}
+loadArticlesFromSheet();
 
 // Menu Button Mobile
 const menuBtn = document.getElementById('menuBtn');
